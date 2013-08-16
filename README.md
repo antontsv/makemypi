@@ -14,11 +14,13 @@ I was tired of doing all these steps manually, so I automated the whole process:
 - Downloads a Raspbian Wheezy OS image file if you don't have one already
 - Writes the OS image onto the SD card
 - Configures the raspi's SSH credentials, including authorizing your own key so you can do key-based login
-- Makes some common/convenient aliases:
-	- `ll` (ls -la)
-	- `echoip` (shows raspi's external IP address)
-	- `locip` (shows raspi's local IP address)
-	- `temp` (shows the CPU temperature)
+- Makes some common, convenient aliases:
+   - `ls` (ls -GF)
+   - `ll` (ls -Gl)
+   - `la` (ls -Glha)
+   - `echoip` (shows raspi's external IP address)
+   - `locip` (shows raspi's local IP address)
+   - `temp` (shows the CPU temperature)
 - Installs:
    - `htop` (a better process viewer)
    - `expect` (for automating terminal tasks)

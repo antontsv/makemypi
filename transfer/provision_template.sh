@@ -14,6 +14,10 @@ source config.sh
 #    CONFIGURE    #
 ###################
 
+
+# You might like to keep this and use it
+PiHome=$(eval echo ~${SUDO_USER})
+
 # Example variable
 VarName="example value"
 

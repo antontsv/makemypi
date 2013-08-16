@@ -55,10 +55,15 @@ apt-get autoremove -y && apt-get clean
 rm -rf ocr_pi.png Desktop/*.desktop python_games
 
 # Establish some helpful aliases
-echo "alias ll=\"ls -la\"" >> .bash_aliases
-echo "alias echoip=\"curl -s echoip.com && echo\"" >> .bash_aliases
-echo "alias locip=\"hostname -I\"" >> .bash_aliases
-echo "alias temp=\"vcgencmd measure_temp\"" >> .bash_aliases
+cat >> .bash_aliases <<-EOF
+	alias ls="ls -GF"
+	alias ll="ls -Gl"
+	alias la="ls -Glha"
+	alias echoip="curl -s echoip.com && echo"
+	alias locip="hostname -I"
+	alias temp="vcgencmd measure_temp"
+EOF
+
 source .bash_aliases
 echo "Created aliases"
 
