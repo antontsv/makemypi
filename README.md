@@ -16,7 +16,7 @@ I was tired of doing all these steps manually, so I automated the whole process:
 - Configures the raspi's SSH credentials, including authorizing your own key so you can do key-based login
 - Makes some common, convenient aliases:
    - `ls` (ls -GF)
-   - `ll` (ls -Gl)
+   - `ll` (ls -Glh)
    - `la` (ls -Glha)
    - `echoip` (shows raspi's external IP address)
    - `locip` (shows raspi's local IP address)

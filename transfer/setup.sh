@@ -57,7 +57,7 @@ rm -rf ocr_pi.png Desktop/*.desktop python_games
 # Establish some helpful aliases
 cat >> .bash_aliases <<-EOF
 	alias ls="ls -GF"
-	alias ll="ls -Gl"
+	alias ll="ls -Glh"
 	alias la="ls -Glha"
 	alias echoip="curl -s echoip.com && echo"
 	alias locip="hostname -I"
