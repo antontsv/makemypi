@@ -3,11 +3,9 @@ makemypi
 
 A script which makes you a Raspberry Pi just the way you want it
 
-
+**EXAMPLE:** [Watch the recording of my terminal](http://ascii.io/a/4525)
 
 ## What it does
-
-**EXAMPLE:** [Watch the recording of my terminal](http://ascii.io/a/4525)
 
 I was tired of doing all these steps manually, so I automated the whole process:
 
@@ -33,6 +31,8 @@ I was tired of doing all these steps manually, so I automated the whole process:
 - Runs a one-time provisioning script with any custom commands as you please
 - Resizes the root filesystem to expand to the whole available size of the SD card
 
+If you want to use the latest firmware on your card, you can add `sudo rpi-update` to your
+provisioning script.
 
 
 ## How it works
