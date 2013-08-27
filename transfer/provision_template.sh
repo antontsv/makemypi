@@ -3,7 +3,7 @@ source config.sh
 
 
 # INSTRUCTIONS
-# 1) Rename this file to custom.sh and delete instructional comments
+# 1) Rename this file to provision.sh and delete instructional comments
 # 2) Define variables below for easy configuration
 #	 (keep in mind this script is run as root, so ~ doesn't do what you think it does)
 # 3) Type commands (your provisioning script) below the configure section.
