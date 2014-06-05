@@ -80,10 +80,9 @@ fi
 # Show the user connected storage devices
 df -h
 
-# Prompt for the SD card device and partition, then confirm
+# Prompt for the SD card device, then confirm
 sure="n"
 device=0
-partition=""
 downloaded=false
 while [ $sure != "y" ]
 do
@@ -93,26 +92,30 @@ do
 	if [ $device == "q" ]; then
 		exit
 	fi
-	echo "You're choosing /dev/disk$device."
-	echo -n "Enter partition (e.g. for /dev/disk""$device""s1, enter s1): "
-	read partition
-	if [ $partition == "q" ]; then
-		exit
-	fi
-	echo "You chose /dev/disk$device$partition."
+	echo "You chose /dev/disk$device."
+	
 	echo -n "Are you ABSOLUTELY sure? [y/n]: "
 	read sure
 	if [ $sure == "q" ]; then
 		exit
+	elif [ $sure != "y" ]; then
+		continue
+	fi
+
+	if [ $device == "1" ]; then
+		echo -n "SD cards are not usually disk1! LAST CHANCE: ARE YOU SURE? [y/n]: "
+		read sure
+		if [ $sure == "q" ]; then
+			exit
+		fi
 	fi
 done
-
 
 # If no image file was specified as an argument, optionally download it and use it
 ImgFile=$1
 if [ -z $ImgFile ]; then
 	echo "No image file specified."
-	echo "I'll download Raspbian Wheezy for you. It's a 518 MB download, and 2.5 GB disk space is needed."
+	echo "I'll download Raspbian Wheezy for you. It's a 820 MB download, and 4 GB disk space is needed."
 	echo -n "Is that OK? [y/n]: "
 	read goahead
 	if [ $goahead == "y" ]; then
@@ -139,11 +142,11 @@ if [ ! -e $ImgFile ]; then
 	exit
 fi
 
-echo "Unmounting partition..."
+echo "Unmounting device..."
 
 diskutil unmountDisk /dev/disk$device
 
-echo "Writing image file, please wait..."
+echo "Writing image file, please wait... (Ctrl+T for progress)"
 
 dd bs=1m if=$ImgFile of=/dev/rdisk$device
 
@@ -162,16 +165,14 @@ echo -ne "\007"
 #(say SD card is ready &); (say -v Whisper I own you &)
 
 # Get the LAN IP address of the raspi
-IpAddressBegin="192.168."
 echo "Please use it to boot the Raspberry Pi on the local network before continuing."
 if [ "$WifiSSID" ]; then
 	echo " -->  Please plug in the wifi receiver and ethernet."
 	echo " -->  You MUST plug in at least the network cable for this step"
 	echo "      because wifi won't connect until setup is complete."
 fi
-echo -n "When booted: what is the local IP address of the Pi? $IpAddressBegin"
-read IpAddressEnd
-IpAddress=$IpAddressBegin$IpAddressEnd
+echo -n "When booted: what is the local IP address of the Pi? "
+read IpAddress
 
 
 # Remove any conflicting host keys from the known_hosts file so there's no "nasty" warnings

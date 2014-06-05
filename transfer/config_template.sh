@@ -16,11 +16,11 @@ AuthorizedPubKey=""
 # Time zone, according to: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 TimeZone="America/Denver"
 
-# Filename of the Raspbian image to download, minus extension (tested on: "2013-07-26-wheezy-raspbian")
-DownloadFilenameNoExt="2013-07-26-wheezy-raspbian"
+# Filename of the .zip file to download (containing the Raspbian image)
+DownloadFilenameNoExt="2014-01-07-wheezy-raspbian"
 
-# Full URL of the Raspbian image file, using the above filename
-DownloadURL="http://files.velocix.com/c1410/images/raspbian/$DownloadFilenameNoExt/$DownloadFilenameNoExt.zip"
+# Full URL of the Raspbian image file (.zip file)
+DownloadURL="http://director.downloads.raspberrypi.org/raspbian/images/raspbian-2014-01-09/$DownloadFilenameNoExt.zip"
 
 # If downloading a Raspbian image, whether to delete it when done ("y" or "n", or leave empty to be prompted)
 DeleteWhenDone=""
