@@ -56,9 +56,9 @@ rm -rf ocr_pi.png Desktop/*.desktop python_games
 
 # Establish some helpful aliases
 cat >> .bash_aliases <<-EOF
-	alias ls="ls -GF"
-	alias ll="ls -Glh"
-	alias la="ls -Glha"
+	alias ls="ls -GF --color=auto"
+	alias ll="ls -Glh --color=auto"
+	alias la="ls -Glha --color=auto"
 	alias echoip="curl -s echoip.com && echo"
 	alias locip="hostname -I"
 	alias temp="vcgencmd measure_temp"
@@ -108,12 +108,7 @@ service ssh restart
 # Change pi password (first line is the current/default password)
 if [ "$NewPassword" != "$DefaultPassword" ] && [ "$NewPassword" ]; then
 	echo "Changing password..."
-passwd pi <<EOI
-$defaultPassword
-$NewPassword
-$NewPassword
-EOI
-	echo "Password changed."
+	echo -e "$DefaultPassword\n$NewPassword\n$NewPassword" | passwd pi
 fi
 
 
@@ -133,6 +128,18 @@ chown -R pi:pi .ssh .bash_aliases
 if [ "$WifiSSID" ]; then
 	echo "Configuring wifi"
 	wpa_passphrase "$WifiSSID" "$WifiPassword" >> /etc/wpa_supplicant/wpa_supplicant.conf
+
+	# Sometimes the wireless adapter needs to be brought up, down, then up again
+	echo "Resetting wireless adapter..."
+	ifup wlan0
+	sleep 1
+	ifdown wlan0
+	sleep 1
+	ifup wlan0
+	sleep 1
+
+	# Show config for convenience/debugging, just in case
+	iwconfig
 fi
 
 # Delete the built-in script that reminds us to configure the Pi
@@ -155,7 +162,7 @@ echo -ne "\007"
 echo
 echo " ***  ALL DONE!"
 echo " ***  REBOOTING TO FINISH SETUP."
-echo " ***  COME BACK TO VISIT ANY TIME WITH:"
+echo " ***  COME BACK TO VISIT ANY TIME:"
 echo
 echo "      ssh pi@`hostname -I`-p $SSHPort"
 echo
